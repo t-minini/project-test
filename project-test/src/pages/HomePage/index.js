@@ -1,24 +1,59 @@
+import { Link } from "react-router-dom";
 import axios from "axios";
+import { useState, useEffect } from "react";
+
+// import { CreateLink } from "../CreateList";
 
 export function HomePage() {
-  //lidando com promises + axios com async/await
-  async function fetchApiMovies() {
-    // async/await combinado com o try/catch
-    try {
-      const respDb = await axios.get(
-        "https://api.themoviedb.org/3/discover/movie?api_key=41a1e07b6755a00d6d92f63af67face9&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
-      );
-      // console.log(respDb.data);
-    } catch (error) {
-      console.log(error);
+  const [myMovies, setMyMovies] = useState([{}]);
+
+  useEffect(() => {
+    async function fetchMyMovies() {
+      try {
+        const response = await axios.get(
+          "https://ironrest.herokuapp.com/tulio-project-test"
+        );
+        // console.log(response);
+        setMyMovies(response.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
-  fetchApiMovies();
+    fetchMyMovies();
+  }, []);
+
 
   return (
     <>
       <div>
-        <h1>TEST AGAIN!!</h1>
+        <Link to="/create-list" type="button" className="btn btn-primary">
+          CREATE YOUR OWN LIST HERE!
+        </Link>
+      </div>
+      <div>
+        {myMovies.map((currentList) => {
+          return (
+            <div key={currentList.id}>
+              <div className="card" style={{ width: "14rem" }}>
+                <div className="card-body">
+                  <h5 className="card-title" style={{ fontSize: "15px" }}>
+                    {currentList.owner}'s Movie List
+                  </h5>
+                  <p className="card-text" style={{ fontSize: "10px" }}>
+                    Release date: {currentList.release_date}
+                  </p>
+                  <Link to="/detail-list"
+                  type="button"
+                    className="btn btn-primary"
+                    style={{ fontSize: "10px" }}
+                  >
+                    SEE DETAILS
+                  </Link>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </>
   );
