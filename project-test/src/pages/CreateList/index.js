@@ -90,10 +90,16 @@ export function CreateList() {
                     Release date: {currentMovie.release_date}
                   </p>
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-success"
                     style={{ fontSize: "10px" }}
                   >
-                    ADD TO YOUR LIST
+                    ADD TO LIST
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    style={{ fontSize: "10px" }}
+                  >
+                    REMOVE FROM LIST
                   </button>
                 </div>
               </div>

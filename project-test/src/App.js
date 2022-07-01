@@ -3,14 +3,13 @@ import { HomePage } from "./pages/HomePage";
 import { CreateList } from "./pages/CreateList";
 import { DetailList } from "./pages/DetailList";
 
-
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/create-list" element={<CreateList />} />
-        <Route path="/detail-list" element={<DetailList />} />
+        <Route path="/detail-list/:_id" element={<DetailList />} />
       </Routes>
     </>
   );
